@@ -1,1 +1,52 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #FF6F61;
+  --color-secondary: #FFD166;
+  --color-accent: #06D6A0;
+  --color-info: #118AB2;
+
+  --color-bg: #FFF8E7;
+  --color-surface: #F9FAFB;
+
+  --color-text: #333333;
+  --color-text-secondary: #6B7280;
+
+  --color-error: #EF476F;
+  --color-success: #83C56C;
+
+  --color-daily-notes: #FFB997;
+  --color-weekly-planner: #A0E7E5;
+  --color-monthly-planner: #CDB4DB;
+  --color-mood-tracker: #FF9AA2;
+  --color-habit-tracker: #B5E48C;
+  --color-budget-tracker: #FFE156;
+  --color-daily-saving: #00C2A8;
+}
+
+/* === 🌸 Global Styles === */
+body {
+  font-family: 'Baloo 2', cursive;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  margin: 0;
+  padding: 0;
+}
+
+/* Example Button Styles */
+button {
+  font-family: inherit;
+  background-color: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+button:hover {
+  background-color: #ff5c4d;
+}

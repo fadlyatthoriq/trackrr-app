@@ -1,0 +1,78 @@
+<div class="relative flex items-center justify-center min-h-screen overflow-hidden bg-bg font-baloo">
+  <!-- 🌈 Animated Background Blobs -->
+  <div class="absolute top-0 left-0 w-[400px] h-[400px] bg-gradient-to-br from-primary to-[#FFB997] rounded-full blur-[100px] opacity-50 animate-float -translate-x-32 -translate-y-32"></div>
+  <div class="absolute top-1/2 right-0 w-[350px] h-[350px] bg-gradient-to-br from-secondary to-[#FFE156] rounded-full blur-[100px] opacity-50 animate-float-delayed -translate-y-1/2 translate-x-28"></div>
+  <div class="absolute bottom-0 left-[20%] w-[450px] h-[450px] bg-gradient-to-br from-accent to-[#A0E7E5] rounded-full blur-[100px] opacity-50 animate-float-delayed-2 translate-y-36"></div>
+
+  <!-- 🌟 Register Card -->
+  <div class="relative z-10 w-full max-w-md px-6">
+    <div class="p-10 transition-all duration-500 ease-in-out border shadow-2xl bg-white/80 backdrop-blur-xl border-white/40 rounded-3xl hover:shadow-primary/20">
+      <!-- Logo / Icon -->
+      <div class="mb-8 text-center">
+        <h2 class="text-4xl font-extrabold tracking-wide text-gray-800">Create Account</h2>
+        <p class="mt-2 text-gray-500">Join Trackrr and start your colorful journey</p>
+      </div>
+
+      <!-- 📝 Register Form -->
+      <form id="registerForm" class="space-y-6">
+        <div>
+          <label for="name" class="block mb-2 text-sm font-semibold text-gray-700">Full Name</label>
+          <input
+            type="text"
+            id="name"
+            placeholder="Your full name"
+            required
+            class="w-full px-4 py-3.5 rounded-xl border-2 border-gray-200 text-sm bg-white/60 placeholder-gray-400 transition-all focus:border-primary focus:ring-4 focus:ring-primary/20 outline-none"
+          />
+        </div>
+
+        <div>
+          <label for="email" class="block mb-2 text-sm font-semibold text-gray-700">Email Address</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="you@example.com"
+            required
+            class="w-full px-4 py-3.5 rounded-xl border-2 border-gray-200 text-sm bg-white/60 placeholder-gray-400 transition-all focus:border-primary focus:ring-4 focus:ring-primary/20 outline-none"
+          />
+        </div>
+
+        <div>
+          <label for="password" class="block mb-2 text-sm font-semibold text-gray-700">Password</label>
+          <input
+            type="password"
+            id="password"
+            placeholder="Create a password"
+            required
+            class="w-full px-4 py-3.5 rounded-xl border-2 border-gray-200 text-sm bg-white/60 placeholder-gray-400 transition-all focus:border-primary focus:ring-4 focus:ring-primary/20 outline-none"
+          />
+        </div>
+
+        <div>
+          <label for="confirmPassword" class="block mb-2 text-sm font-semibold text-gray-700">Confirm Password</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            placeholder="Re-enter your password"
+            required
+            class="w-full px-4 py-3.5 rounded-xl border-2 border-gray-200 text-sm bg-white/60 placeholder-gray-400 transition-all focus:border-primary focus:ring-4 focus:ring-primary/20 outline-none"
+          />
+        </div>
+
+        <!-- ✨ Sign Up Button -->
+        <button
+          type="submit"
+          class="w-full py-3.5 bg-gradient-to-r from-primary to-[#ff5c4d] text-white rounded-xl font-semibold text-base shadow-lg shadow-primary/30 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 active:translate-y-0"
+        >
+          Create Account
+        </button>
+      </form>
+
+      <!-- Login Link -->
+      <div class="mt-6 text-sm text-center text-gray-600">
+        Already have an account?
+        <a href="login" class="font-semibold text-primary hover:underline">Sign in</a>
+      </div>
+    </div>
+  </div>
+</div>
