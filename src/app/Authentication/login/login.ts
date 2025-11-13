@@ -9,7 +9,7 @@ import { Auth } from '../auth';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './login.html',
-  styleUrl: './login.scss'
+  styleUrl: './login.scss',
 })
 export class Login {
   email: string = '';
@@ -17,24 +17,29 @@ export class Login {
   message: string = '';
   isError: boolean = false;
   rememberMe: boolean = false;
+  isLoading: boolean = false;
 
   constructor(private auth: Auth, private router: Router) {}
 
   ngOnInit() {
-    const remembered = localStorage.getItem('trackrr_remember');
-    if (remembered) {
-      const saved = JSON.parse(remembered);
-      this.email = saved.email;
-      this.password = saved.password;
-      this.rememberMe = true;
+    if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+      const remembered = localStorage.getItem('trackrr_remember');
+      if (remembered) {
+        const saved = JSON.parse(remembered);
+        this.email = saved.email;
+        this.password = saved.password;
+        this.rememberMe = true;
+      }
     }
   }
 
   onLogin() {
-    const result = this.auth.login(this.email, this.password);
+    this.isLoading = true;
+    const result = this.auth.login(this.email.trim(), this.password.trim());
 
     this.message = result.message;
     this.isError = !result.success;
+    this.isLoading = false;
 
     if (result.success) {
       if (this.rememberMe) {
@@ -46,9 +51,8 @@ export class Login {
         localStorage.removeItem('trackrr_remember');
       }
 
-      setTimeout(() => {
-        this.router.navigate(['/home']);
-      }, 1000);
+      // Redirect immediately after successful login
+      this.router.navigate(['home']);
     }
   }
 }

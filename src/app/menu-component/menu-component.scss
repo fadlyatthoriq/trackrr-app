@@ -1,0 +1,231 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.body {
+  background: linear-gradient(135deg, #FFF8E7 0%, #FFE8E0 100%);
+  min-height: 100vh;
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+  animation: fadeInDown 0.6s ease;
+}
+
+.header h1 {
+  color: #FF6F61;
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header p {
+  color: #6B7280;
+  font-size: 1.1rem;
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.menu-card {
+  position: relative;
+  background: #F9FAFB;
+  border-radius: 20px;
+  padding: 2rem;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  animation: fadeInUp 0.6s ease backwards;
+}
+
+.menu-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.menu-card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.menu-card:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.menu-card:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.menu-card:nth-child(5) {
+  animation-delay: 0.5s;
+}
+
+.menu-card:nth-child(6) {
+  animation-delay: 0.6s;
+}
+
+.menu-card:nth-child(7) {
+  animation-delay: 0.7s;
+}
+
+.menu-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, transparent 0%, rgba(255, 111, 97, 0.1) 100%);
+  transform: translateY(100%);
+  transition: transform 0.4s ease;
+}
+
+.menu-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 15px 35px rgba(255, 111, 97, 0.3);
+}
+
+.menu-card:hover::before {
+  transform: translateY(0);
+}
+
+.card-icon {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  font-size: 2.5rem;
+  transition: all 0.4s ease;
+  z-index: 1;
+}
+
+.menu-card:hover .card-icon {
+  transform: rotate(360deg) scale(1.1);
+}
+
+.card-content {
+  position: relative;
+  z-index: 1;
+}
+
+.card-title {
+  color: #333333;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  transition: color 0.3s ease;
+}
+
+.menu-card:hover .card-title {
+  color: #FF6F61;
+}
+
+.card-description {
+  color: #6B7280;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.card-arrow {
+  display: inline-flex;
+  align-items: center;
+  color: #FF6F61;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: transform 0.3s ease;
+}
+
+.card-arrow::after {
+  content: '→';
+  margin-left: 0.5rem;
+  transition: margin-left 0.3s ease;
+}
+
+.menu-card:hover .card-arrow::after {
+  margin-left: 1rem;
+}
+
+/* Color variations for each card */
+.card-daily .card-icon {
+  background: linear-gradient(135deg, #FF6F61, #FF8F81);
+}
+
+.card-weekly .card-icon {
+  background: linear-gradient(135deg, #FFD166, #FFE186);
+}
+
+.card-monthly .card-icon {
+  background: linear-gradient(135deg, #06D6A0, #26E6B0);
+}
+
+.card-mood .card-icon {
+  background: linear-gradient(135deg, #118AB2, #31AAD2);
+}
+
+.card-habit .card-icon {
+  background: linear-gradient(135deg, #83C56C, #93D57C);
+}
+
+.card-budget .card-icon {
+  background: linear-gradient(135deg, #EF476F, #FF677F);
+}
+
+.card-saving .card-icon {
+  background: linear-gradient(135deg, #06D6A0, #FFD166);
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .header h1 {
+    font-size: 2rem;
+  }
+
+  .menu-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .menu-card {
+    padding: 1.5rem;
+  }
+}

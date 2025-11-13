@@ -1,0 +1,103 @@
+<div  class="body">
+    <div class="container">
+        <div class="header">
+            <h1>✨ My Planner Dashboard</h1>
+            <p>Pilih fitur untuk memulai hari yang produktif!</p>
+        </div>
+
+        <div class="menu-grid">
+            <!-- Daily Notes -->
+            <div class="menu-card card-daily" onclick="navigateTo('daily-notes')">
+                <div class="card-icon">📝</div>
+                <div class="card-content">
+                    <h3 class="card-title">Daily Notes</h3>
+                    <p class="card-description">Tulis catatan harian, refleksi, dan momen penting hari ini.</p>
+                    <span class="card-arrow">Mulai Menulis</span>
+                </div>
+            </div>
+
+            <!-- Weekly Planner -->
+            <div class="menu-card card-weekly" onclick="navigateTo('weekly-planner')">
+                <div class="card-icon">📅</div>
+                <div class="card-content">
+                    <h3 class="card-title">Weekly Planner</h3>
+                    <p class="card-description">Rencanakan minggu Anda dengan jadwal Senin-Jumat yang terstruktur.</p>
+                    <span class="card-arrow">Lihat Jadwal</span>
+                </div>
+            </div>
+
+            <!-- Monthly Planner -->
+            <div class="menu-card card-monthly" onclick="navigateTo('monthly-planner')">
+                <div class="card-icon">📆</div>
+                <div class="card-content">
+                    <h3 class="card-title">Monthly Planner</h3>
+                    <p class="card-description">Kelola rencana bulanan dengan tampilan kalender yang lengkap.</p>
+                    <span class="card-arrow">Buka Kalender</span>
+                </div>
+            </div>
+
+            <!-- Mood Tracker -->
+            <div class="menu-card card-mood" onclick="navigateTo('mood-tracker')">
+                <div class="card-icon">😊</div>
+                <div class="card-content">
+                    <h3 class="card-title">Mood Tracker</h3>
+                    <p class="card-description">Catat suasana hati harianmu dan lihat pola emosi dari waktu ke waktu.</p>
+                    <span class="card-arrow">Track Mood</span>
+                </div>
+            </div>
+
+            <!-- Habit Tracker -->
+            <div class="menu-card card-habit" onclick="navigateTo('habit-tracker')">
+                <div class="card-icon">✅</div>
+                <div class="card-content">
+                    <h3 class="card-title">Habit Tracker</h3>
+                    <p class="card-description">Pantau kebiasaan baik dan capai target harian dengan konsisten.</p>
+                    <span class="card-arrow">Lihat Habits</span>
+                </div>
+            </div>
+
+            <!-- Budget Tracker -->
+            <div class="menu-card card-budget" onclick="navigateTo('budget-tracker')">
+                <div class="card-icon">💰</div>
+                <div class="card-content">
+                    <h3 class="card-title">Budget Tracker</h3>
+                    <p class="card-description">Kelola keuangan, catat pengeluaran dan pemasukan dengan mudah.</p>
+                    <span class="card-arrow">Kelola Budget</span>
+                </div>
+            </div>
+
+            <!-- Daily Saving -->
+            <div class="menu-card card-saving" onclick="navigateTo('daily-saving')">
+                <div class="card-icon">🐷</div>
+                <div class="card-content">
+                    <h3 class="card-title">Daily Saving</h3>
+                    <p class="card-description">Catat tabungan harian dan lihat progress finansial Anda.</p>
+                    <span class="card-arrow">Mulai Menabung</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function navigateTo(page) {
+            // Tambahkan animasi sebelum navigasi
+            event.currentTarget.style.transform = 'scale(0.95)';
+
+            setTimeout(() => {
+                // Ganti dengan URL halaman yang sesuai
+                alert(`Navigasi ke: ${page}\n\nNanti hubungkan dengan halaman masing-masing!`);
+                // window.location.href = `${page}.html`;
+            }, 200);
+        }
+
+        // Tambahkan efek parallax ringan saat scroll
+        window.addEventListener('scroll', () => {
+            const cards = document.querySelectorAll('.menu-card');
+            cards.forEach((card, index) => {
+                const speed = (index + 1) * 0.1;
+                const yPos = window.pageYOffset * speed;
+                card.style.transform = `translateY(-${yPos}px)`;
+            });
+        });
+    </script>
+</div>

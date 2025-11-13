@@ -1,0 +1,53 @@
+<nav class="bg-[#FFF8E7] border-b border-[#FFD166]/50 py-3 px-4 flex justify-between items-center">
+  <!-- Left Section (Logo / Greeting) -->
+  <div class="flex items-center gap-2">
+    <img src="https://www.svgrepo.com/show/499962/music.svg" alt="Trackrr Logo" class="h-7 w-7" />
+    <span class="text-lg font-semibold text-[#FF6F61]">Trackrr</span>
+
+    <!-- Greeting (hanya muncul setelah login) -->
+    <span *ngIf="auth.isLoggedIn()" class="ml-4 text-[#333333]">
+      Hai, <strong>{{ auth.getCurrentUser()?.name }}</strong> 👋
+    </span>
+  </div>
+
+  <!-- Center Section (Main Menu) -->
+  <ul *ngIf="auth.isLoggedIn() && showMainMenu" class="hidden lg:flex space-x-6 font-medium text-[#333333]">
+    <li><a routerLink="/daily-notes" routerLinkActive="text-[#FF6F61] font-semibold hover:text-[#06D6A0]">Daily Notes</a></li>
+    <li><a routerLink="/weekly-planner" routerLinkActive="text-[#FF6F61] font-semibold hover:text-[#06D6A0]">Weekly Planner</a></li>
+    <li><a routerLink="/monthly-planner" routerLinkActive="text-[#FF6F61] font-semibold hover:text-[#06D6A0]">Monthly Planner</a></li>
+    <li><a routerLink="/mood-tracker" routerLinkActive="text-[#FF6F61] font-semibold hover:text-[#06D6A0]">Mood Tracker</a></li>
+    <li><a routerLink="/habit-tracker" routerLinkActive="text-[#FF6F61] font-semibold hover:text-[#06D6A0]">Habit Tracker</a></li>
+    <li><a routerLink="/budget-tracker" routerLinkActive="text-[#FF6F61] font-semibold hover:text-[#06D6A0]">Budget Tracker</a></li>
+    <li><a routerLink="/daily-saving" routerLinkActive="text-[#FF6F61] font-semibold hover:text-[#06D6A0]">Daily Saving</a></li>
+  </ul>
+
+  <!-- Right Section (Dynamic Buttons) -->
+  <div class="flex items-center gap-3">
+    <!-- Tombol kembali (muncul di halaman fitur) -->
+    <button
+      *ngIf="isFeaturePage"
+      (click)="goBackToMenu()"
+      class="px-3 py-2 bg-[#FFD166] text-[#333333] rounded-lg text-sm font-medium hover:bg-[#FF6F61] hover:text-white transition"
+    >
+      ⬅ Kembali
+    </button>
+
+    <!-- Tombol history -->
+    <button
+      *ngIf="isFeaturePage"
+      (click)="openHistoryModal()"
+      class="px-3 py-2 bg-[#06D6A0] text-white rounded-lg text-sm font-medium hover:bg-[#118AB2] transition"
+    >
+      📜 Lihat History
+    </button>
+
+    <!-- Tombol logout -->
+    <button
+      *ngIf="auth.isLoggedIn()"
+      (click)="logout()"
+      class="px-3 py-2 bg-[#EF476F] text-white rounded-lg text-sm font-medium hover:bg-[#d83d63] transition"
+    >
+      Logout
+    </button>
+  </div>
+</nav>
