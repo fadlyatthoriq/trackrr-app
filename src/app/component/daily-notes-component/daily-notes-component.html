@@ -1,0 +1,379 @@
+<div class="app-container">
+  <div class="content-wrapper">
+
+    <!-- Main Grid -->
+    <div class="main-grid">
+      <!-- Notes List -->
+      <div class="notes-section">
+        <div class="section-header">
+          <h2 class="section-title">
+            <span class="title-icon">📝</span>
+            Catatan Terbaru
+          </h2>
+          <button (click)="openHistoryModal()" class="btn-text">
+            Lihat Semua
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+        </div>
+
+        <div class="notes-grid">
+          <div
+            *ngFor="let note of notes; let i = index"
+            class="note-card"
+            [style.animation-delay]="i * 0.1 + 's'"
+            [style.border-left-color]="note.color"
+          >
+            <div class="note-header">
+              <img [src]="note.avatarUrl" [alt]="note.title" class="note-avatar" />
+              <div class="note-meta">
+                <h3 class="note-title">{{ note.title }}</h3>
+                <div class="note-badges">
+                  <span class="badge badge-date">
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                      <line x1="16" y1="2" x2="16" y2="6"></line>
+                      <line x1="8" y1="2" x2="8" y2="6"></line>
+                      <line x1="3" y1="10" x2="21" y2="10"></line>
+                    </svg>
+                    {{ note.date | date : 'dd MMM yyyy, HH:mm' }}
+                  </span>
+                  <span *ngIf="note.location" class="badge badge-location">
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                      <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                    {{ note.location }}
+                  </span>
+                </div>
+              </div>
+              <button (click)="deleteNote(note.id)" class="btn-delete" title="Hapus catatan">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <polyline points="3 6 5 6 21 6"></polyline>
+                  <path
+                    d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+            <p class="note-description">{{ note.description }}</p>
+            <div class="note-footer">
+              <div class="color-dot" [style.background]="note.color"></div>
+              <span class="note-timestamp">{{ note.createdAt | date : 'short' }}</span>
+            </div>
+          </div>
+
+          <div *ngIf="notes.length === 0" class="empty-state">
+            <div class="empty-icon">📝</div>
+            <h3>Belum ada catatan</h3>
+            <p>Mulai tulis catatan pertamamu hari ini!</p>
+            <button (click)="openAddModal()" class="btn btn-primary">Tulis Sekarang</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Calendar Sidebar -->
+      <aside class="calendar-sidebar">
+        <div class="calendar-card">
+          <div class="calendar-header">
+            <h2 class="calendar-title">
+              <span class="title-icon">📅</span>
+              Kalender
+            </h2>
+          </div>
+          <div class="calendar-wrapper">
+            <full-calendar [options]="calendarOptions"></full-calendar>
+          </div>
+          <button (click)="openAddModal()" class="btn btn-secondary btn-full">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            Tambah Catatan
+          </button>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="stats-card">
+          <h3 class="stats-title">Statistik</h3>
+          <div class="stat-item">
+            <div class="stat-icon stat-icon-primary">📊</div>
+            <div>
+              <div class="stat-value">{{ notes.length }}</div>
+              <div class="stat-label">Total Catatan</div>
+            </div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-icon stat-icon-success">✅</div>
+            <div>
+              <div class="stat-value">{{ getThisMonthCount() }}</div>
+              <div class="stat-label">Bulan Ini</div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <!-- Add/Edit Modal -->
+  <div class="modal" [class.active]="addModalOpen" (click)="closeAddModal()">
+    <div class="modal-dialog" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2 class="modal-title">
+          {{ editingNote ? '✏️ Edit Catatan' : '✨ Catatan Baru' }}
+        </h2>
+        <button (click)="closeAddModal()" class="btn-close">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <form [formGroup]="noteForm" (ngSubmit)="saveNote()" class="modal-body">
+        <div class="form-group">
+          <label class="form-label">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+            </svg>
+            Judul Catatan
+          </label>
+          <input
+            formControlName="title"
+            type="text"
+            class="form-input"
+            placeholder="Ketik judul yang menarik..."
+            [class.error]="noteForm.controls['title'].invalid && noteForm.controls['title'].touched"
+          />
+          <div
+            *ngIf="noteForm.controls['title'].invalid && noteForm.controls['title'].touched"
+            class="error-message"
+          >
+            Judul wajib diisi
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group flex-1">
+            <label class="form-label">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg>
+              Tanggal & Waktu
+            </label>
+            <input formControlName="datetime" type="datetime-local" class="form-input" />
+          </div>
+
+          <div class="form-group" style="width: 120px">
+            <label class="form-label">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+              </svg>
+              Warna
+            </label>
+            <input formControlName="color" type="color" class="form-input-color" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+            Lokasi (Opsional)
+          </label>
+          <input
+            formControlName="location"
+            type="text"
+            class="form-input"
+            placeholder="Contoh: Starbucks, Rumah, Kantor..."
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+            Deskripsi
+          </label>
+          <textarea
+            formControlName="description"
+            class="form-textarea"
+            placeholder="Ceritakan tentang hari ini..."
+            rows="5"
+            [class.error]="
+              noteForm.controls['description'].invalid && noteForm.controls['description'].touched
+            "
+          ></textarea>
+          <div
+            *ngIf="
+              noteForm.controls['description'].invalid && noteForm.controls['description'].touched
+            "
+            class="error-message"
+          >
+            Deskripsi wajib diisi
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" (click)="closeAddModal()" class="btn btn-outline">Batal</button>
+          <button type="submit" class="btn btn-primary btn-glow">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+              <polyline points="17 21 17 13 7 13 7 21"></polyline>
+              <polyline points="7 3 7 8 15 8"></polyline>
+            </svg>
+            {{ editingNote ? 'Update' : 'Simpan' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- History Modal -->
+  <div class="modal" [class.active]="historyModalOpen" (click)="closeHistoryModal()">
+    <div class="modal-dialog modal-dialog-large" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2 class="modal-title">📜 Riwayat Catatan</h2>
+        <button (click)="closeHistoryModal()" class="btn-close">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="history-grid">
+          <div
+            *ngFor="let group of notes | groupByMonth"
+            class="history-card"
+            [style.border-left-color]="group.color || '#FF6F61'"
+          >
+            <div class="history-header">
+              <div>
+                <h3 class="history-month">{{ group.monthLabel }}</h3>
+                <p class="history-count">{{ group.items.length }} catatan</p>
+              </div>
+              <button class="btn-text">
+                Lihat Detail
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

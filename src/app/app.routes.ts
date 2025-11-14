@@ -4,6 +4,8 @@ import { Register } from './component/authentication/register/register';
 import { ForgotPassword } from './component/authentication/forgot-password/forgot-password';
 import { GreetingComponent } from './component/greeting-component/greeting-component';
 import { MenuComponent } from './component/menu-component/menu-component';
+import { DailyNotesComponent } from './component/daily-notes-component/daily-notes-component';
+
 import { authGuard } from './guard/auth.guard';
 
 export const routes: Routes = [
@@ -17,6 +19,12 @@ export const routes: Routes = [
   {
     path: 'menu',
     component: MenuComponent,
+    canActivate: [authGuard],
+  },
+
+  {
+    path: 'daily-notes',
+    component: DailyNotesComponent,
     canActivate: [authGuard],
   },
 
