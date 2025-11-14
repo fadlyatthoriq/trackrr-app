@@ -1,7 +1,7 @@
 import { Component, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule, NavigationEnd } from '@angular/router';
-import { Auth } from '../Authentication/auth';
+import { Auth } from '../../services/auth';
 import { filter } from 'rxjs/operators';
 
 @Component({
@@ -15,18 +15,16 @@ export class NavComponent implements OnInit {
   protected isMenuOpen = signal(false);
   protected isFeaturePage = signal(false);
   protected showMainMenu = signal(false);
+  protected isDropdownOpen = signal(false);
 
   constructor(protected auth: Auth, private router: Router) {}
 
   ngOnInit(): void {
-    // 🔍 Pantau perubahan route
     this.router.events.pipe(filter(e => e instanceof NavigationEnd)).subscribe((event: any) => {
       const url = event.urlAfterRedirects || event.url;
 
-      // jika berada di halaman menu utama
       this.showMainMenu.set(url.includes('/menu'));
 
-      // jika berada di salah satu halaman fitur
       const featureRoutes = [
         '/daily-notes',
         '/weekly-planner',
@@ -37,11 +35,17 @@ export class NavComponent implements OnInit {
         '/daily-saving'
       ];
       this.isFeaturePage.set(featureRoutes.some(route => url.includes(route)));
+
+      this.isDropdownOpen.set(false);
     });
   }
 
   toggleMenu(): void {
     this.isMenuOpen.update(state => !state);
+  }
+
+  toggleDropdown(): void {
+    this.isDropdownOpen.update(state => !state);
   }
 
   goBackToMenu(): void {

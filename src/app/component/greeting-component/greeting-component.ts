@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Auth } from '../Authentication/auth';
+import { Auth } from '../../services/auth';
 
 @Component({
   selector: 'app-greeting-component',

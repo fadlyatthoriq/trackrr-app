@@ -1,23 +1,23 @@
 import { Routes } from '@angular/router';
-import { Login } from './Authentication/login/login';
-import { Register } from './Authentication/register/register';
-import { ForgotPassword } from './Authentication/forgot-password/forgot-password';
-import { GreetingComponent } from './greeting-component/greeting-component';
-import { MenuComponent } from './menu-component/menu-component';
-import { AuthGuard } from './Authentication/auth.guard';
+import { Login } from './component/authentication/login/login';
+import { Register } from './component/authentication/register/register';
+import { ForgotPassword } from './component/authentication/forgot-password/forgot-password';
+import { GreetingComponent } from './component/greeting-component/greeting-component';
+import { MenuComponent } from './component/menu-component/menu-component';
+import { authGuard } from './guard/auth.guard';
 
 export const routes: Routes = [
 
   {
     path: 'home',
     component: GreetingComponent,
-    canActivate: [AuthGuard],
+    canActivate: [authGuard],
   },
 
   {
     path: 'menu',
     component: MenuComponent,
-    canActivate: [AuthGuard],
+    canActivate: [authGuard],
   },
 
   { path: '', redirectTo: 'login', pathMatch: 'full' },
