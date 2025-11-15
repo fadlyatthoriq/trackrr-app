@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu-component',
@@ -8,4 +9,21 @@ import { Component } from '@angular/core';
 })
 export class MenuComponent {
 
+  constructor(private router: Router) {}
+
+   navigateTo(page: string, event?: Event) {
+    const target = event?.currentTarget as HTMLElement;
+    if (target) {
+      target.style.transform = 'scale(0.95)';
+
+      setTimeout(() => {
+        target.style.transform = 'scale(1)';
+      }, 150);
+    }
+
+    // Navigasi Angular
+    setTimeout(() => {
+      this.router.navigate([`/${page}`]);
+    }, 200);
+  }
 }

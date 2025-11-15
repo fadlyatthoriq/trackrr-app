@@ -7,7 +7,7 @@
 
         <div class="menu-grid">
             <!-- Daily Notes -->
-            <div class="menu-card card-daily" onclick="navigateTo('daily-notes')">
+            <div class="menu-card card-daily" (click)="navigateTo('daily-notes')">
                 <div class="card-icon">
                     <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
@@ -22,7 +22,7 @@
             </div>
 
             <!-- Weekly Planner -->
-            <div class="menu-card card-weekly" onclick="navigateTo('weekly-planner')">
+            <div class="menu-card card-weekly" (click)="navigateTo('weekly-planner')">
                 <div class="card-icon">
                     <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
@@ -39,7 +39,7 @@
             </div>
 
             <!-- Monthly Planner -->
-            <div class="menu-card card-monthly" onclick="navigateTo('monthly-planner')">
+            <div class="menu-card card-monthly" (click)="navigateTo('monthly-planner')">
                 <div class="card-icon">
                     <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
@@ -57,7 +57,7 @@
             </div>
 
             <!-- Mood Tracker -->
-            <div class="menu-card card-mood" onclick="navigateTo('mood-tracker')">
+            <div class="menu-card card-mood" (click)="navigateTo('mood-tracker')">
                 <div class="card-icon">
                     <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <circle cx="12" cy="12" r="10"></circle>
@@ -74,7 +74,7 @@
             </div>
 
             <!-- Habit Tracker -->
-            <div class="menu-card card-habit" onclick="navigateTo('habit-tracker')">
+            <div class="menu-card card-habit" (click)="navigateTo('habit-tracker')">
                 <div class="card-icon">
                     <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <polyline points="20 6 9 17 4 12"></polyline>
@@ -88,7 +88,7 @@
             </div>
 
             <!-- Budget Tracker -->
-            <div class="menu-card card-budget" onclick="navigateTo('budget-tracker')">
+            <div class="menu-card card-budget" (click)="navigateTo('budget-tracker')">
                 <div class="card-icon">
                     <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <line x1="12" y1="1" x2="12" y2="23"></line>
@@ -103,7 +103,7 @@
             </div>
 
             <!-- Daily Saving -->
-            <div class="menu-card card-saving" onclick="navigateTo('daily-saving')">
+            <div class="menu-card card-saving" (click)="navigateTo('daily-saving')">
                 <div class="card-icon">
                     <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M19 5H5c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2z"></path>
@@ -119,27 +119,4 @@
             </div>
         </div>
     </div>
-
-    <script>
-        function navigateTo(page) {
-            // Tambahkan animasi sebelum navigasi
-            event.currentTarget.style.transform = 'scale(0.95)';
-
-            setTimeout(() => {
-                // Ganti dengan URL halaman yang sesuai
-                alert(`Navigasi ke: ${page}\n\nNanti hubungkan dengan halaman masing-masing!`);
-                // window.location.href = `${page}.html`;
-            }, 200);
-        }
-
-        // Tambahkan efek parallax ringan saat scroll
-        window.addEventListener('scroll', () => {
-            const cards = document.querySelectorAll('.menu-card');
-            cards.forEach((card, index) => {
-                const speed = (index + 1) * 0.1;
-                const yPos = window.pageYOffset * speed;
-                card.style.transform = `translateY(-${yPos}px)`;
-            });
-        });
-    </script>
 </div>

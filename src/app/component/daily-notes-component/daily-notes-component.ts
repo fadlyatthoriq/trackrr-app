@@ -143,7 +143,7 @@ export class DailyNotesComponent implements OnInit {
 
     this.refreshNotes();
     this.closeAddModal();
-    alert('✨ Catatan berhasil disimpan!');
+    alert('Catatan berhasil disimpan!');
   }
 
   deleteNote(noteId: string) {
@@ -180,6 +180,6 @@ export class DailyNotesComponent implements OnInit {
   }
 
   goToMenu() {
-    alert('🏠 Kembali ke Menu Utama');
+    alert('Kembali ke Menu Utama');
   }
 }
